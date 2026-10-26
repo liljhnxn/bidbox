@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useAccount, useWriteContract, useWaitForTransactionReceipt, useChainId, useSwitchChain } from 'wagmi';
 import { parseEther, formatEther } from 'viem';
 import { BIDBOX_ABI } from '@/config/contract';
-import { botchainTestnet, publicClient } from '@/config/network';
+import { botchainMainnet, publicClient } from '@/config/network';
 import { ArrowUpRight, Loader2, CheckCircle2, AlertCircle, ExternalLink, Sparkles } from 'lucide-react';
 
 interface PlaceBidProps {
@@ -34,7 +34,7 @@ export function PlaceBid({
   const [validationError, setValidationError] = useState<string | null>(null);
   const [directConfirmed, setDirectConfirmed] = useState<boolean>(false);
 
-  const isCorrectNetwork = chainId === botchainTestnet.id;
+  const isCorrectNetwork = chainId === botchainMainnet.id;
 
   const {
     data: hash,
@@ -89,7 +89,7 @@ export function PlaceBid({
     }
   }, [address, highestBidder, hash, onSuccess]);
 
-  // 3. Safety fallback timeout: prevent endless spinner if testnet RPC delays receipt
+  // 3. Safety fallback timeout: prevent endless spinner if RPC delays receipt
   useEffect(() => {
     if (!hash || directConfirmed) return;
     const timer = setTimeout(() => {
@@ -168,7 +168,7 @@ export function PlaceBid({
         abi: BIDBOX_ABI,
         functionName: 'bid',
         value: parseEther(bidAmount),
-        chainId: botchainTestnet.id,
+        chainId: botchainMainnet.id,
       });
     } catch (err: any) {
       console.error('Bid submission error:', err);
@@ -276,11 +276,11 @@ export function PlaceBid({
         ) : !isCorrectNetwork ? (
           <button
             type="button"
-            onClick={() => switchChain({ chainId: botchainTestnet.id })}
+            onClick={() => switchChain({ chainId: botchainMainnet.id })}
             className="w-full py-3.5 rounded-xl font-semibold text-sm text-amber-300 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 transition-colors flex items-center justify-center space-x-2"
           >
             <AlertCircle className="w-4 h-4" />
-            <span>Switch to Botchain Testnet (968)</span>
+            <span>Switch to Botchain Mainnet (677)</span>
           </button>
         ) : (
           <button
@@ -316,7 +316,7 @@ export function PlaceBid({
             <span>Bid successfully confirmed on Botchain!</span>
           </div>
           <a
-            href={`https://scan.bohr.life/tx/${hash}`}
+            href={`https://scan.botchain.ai/tx/${hash}`}
             target="_blank"
             rel="noreferrer"
             className="mt-2 inline-flex items-center space-x-1 text-purple-300 hover:text-white underline font-mono text-[11px]"

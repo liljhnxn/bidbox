@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { formatEther } from 'viem';
 import { BIDBOX_ABI } from '@/config/contract';
-import { botchainTestnet, publicClient } from '@/config/network';
+import { botchainMainnet, publicClient } from '@/config/network';
 import { Settings, XCircle, CheckCircle, DollarSign, Loader2, AlertCircle, ExternalLink } from 'lucide-react';
 
 interface CreatorControlsProps {
@@ -102,7 +102,7 @@ export function CreatorControls({
       address: contractAddress,
       abi: BIDBOX_ABI,
       functionName: 'cancelAuction',
-      chainId: botchainTestnet.id,
+      chainId: botchainMainnet.id,
     });
   };
 
@@ -113,7 +113,7 @@ export function CreatorControls({
       address: contractAddress,
       abi: BIDBOX_ABI,
       functionName: 'endAuction',
-      chainId: botchainTestnet.id,
+      chainId: botchainMainnet.id,
     });
   };
 
@@ -124,7 +124,7 @@ export function CreatorControls({
       address: contractAddress,
       abi: BIDBOX_ABI,
       functionName: 'withdrawProceeds',
-      chainId: botchainTestnet.id,
+      chainId: botchainMainnet.id,
     });
   };
 
@@ -270,7 +270,7 @@ export function CreatorControls({
           <span>
             {isWritePending
               ? 'Please confirm creator action in your wallet...'
-              : 'Broadcasting creator action to Botchain Testnet...'}
+              : 'Broadcasting creator action to Botchain Mainnet...'}
           </span>
         </div>
       )}
@@ -282,7 +282,7 @@ export function CreatorControls({
             <span>Action executed successfully!</span>
           </div>
           <a
-            href={`https://scan.bohr.life/tx/${hash}`}
+            href={`https://scan.botchain.ai/tx/${hash}`}
             target="_blank"
             rel="noreferrer"
             className="text-purple-300 underline font-mono inline-flex items-center space-x-1"

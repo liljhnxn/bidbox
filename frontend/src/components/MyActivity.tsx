@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { formatEther } from 'viem';
 import { BIDBOX_ABI } from '@/config/contract';
-import { botchainTestnet, publicClient } from '@/config/network';
+import { botchainMainnet, publicClient } from '@/config/network';
 import { Award, ArrowDownLeft, Loader2, CheckCircle2, AlertCircle, ExternalLink, ShieldCheck } from 'lucide-react';
 
 interface MyActivityProps {
@@ -86,7 +86,7 @@ export function MyActivity({
       address: contractAddress,
       abi: BIDBOX_ABI,
       functionName: 'withdrawRefund',
-      chainId: botchainTestnet.id,
+      chainId: botchainMainnet.id,
     });
   };
 
@@ -214,12 +214,12 @@ export function MyActivity({
             <span>Refund successfully withdrawn to your wallet!</span>
           </div>
           <a
-            href={`https://scan.bohr.life/tx/${hash}`}
+            href={`https://scan.botchain.ai/tx/${hash}`}
             target="_blank"
             rel="noreferrer"
             className="mt-1 inline-flex items-center space-x-1 text-purple-300 hover:text-white underline font-mono text-[11px]"
           >
-            <span>View Tx on BohrScan</span>
+            <span>View Tx on Botchain Scan</span>
             <ExternalLink className="w-3 h-3" />
           </a>
         </div>

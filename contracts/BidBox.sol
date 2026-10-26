@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 /**
  * @title BidBox
- * @notice A simple, secure on-chain auction smart contract for Botchain Testnet.
+ * @notice A simple, secure on-chain auction smart contract for Botchain Mainnet.
  * Allows users to bid on one item using native BOT currency.
  */
 contract BidBox {

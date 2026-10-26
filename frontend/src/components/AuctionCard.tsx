@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { formatEther } from 'viem';
+import Image from 'next/image';
 import { Clock, Tag, User, Layers, Sparkles, ExternalLink, Flame } from 'lucide-react';
 
 interface AuctionCardProps {
@@ -117,12 +118,19 @@ export function AuctionCard({
 
         {contractAddress && (
           <a
-            href={`https://scan.bohr.life/address/${contractAddress}`}
+            href={`https://scan.botchain.ai/address/${contractAddress}`}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center space-x-1.5 text-xs text-purple-400 hover:text-purple-300 transition-colors font-medium group"
+            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 text-xs text-purple-300 hover:text-white transition-all font-medium group"
           >
-            <span>Contract</span>
+            <Image
+              src="/botchain-logo.png"
+              alt="BOT Chain"
+              width={14}
+              height={14}
+              className="w-3.5 h-3.5 rounded object-contain shrink-0 group-hover:scale-110 transition-transform"
+            />
+            <span>Mainnet Explorer</span>
             <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
         )}
@@ -139,7 +147,7 @@ export function AuctionCard({
             {itemName || 'Genesis Botchain Pass #001'}
           </h2>
           <p className="text-sm text-slate-400 mt-1 flex items-center space-x-2">
-            <span>Exclusive digital asset live on Botchain Testnet</span>
+            <span>Exclusive digital asset live on Botchain Mainnet</span>
           </p>
         </div>
 
@@ -187,7 +195,7 @@ export function AuctionCard({
               <span className="text-slate-500 font-sans text-base">None yet</span>
             ) : (
               <a
-                href={`https://scan.bohr.life/address/${highestBidder}`}
+                href={`https://scan.botchain.ai/address/${highestBidder}`}
                 target="_blank"
                 rel="noreferrer"
                 className="hover:text-purple-300 hover:underline inline-flex items-center space-x-1"

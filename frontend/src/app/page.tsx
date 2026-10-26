@@ -3,13 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import { useAccount, useReadContract } from 'wagmi';
 import { BIDBOX_ABI, BIDBOX_CONTRACT_ADDRESS } from '@/config/contract';
-import { botchainTestnet, publicClient } from '@/config/network';
+import { botchainMainnet, publicClient } from '@/config/network';
 import { Header } from '@/components/Header';
 import { AuctionCard } from '@/components/AuctionCard';
 import { PlaceBid } from '@/components/PlaceBid';
 import { MyActivity } from '@/components/MyActivity';
 import { CreatorControls } from '@/components/CreatorControls';
-import { RefreshCw, ExternalLink, HelpCircle, Terminal, CheckCircle2, ShieldAlert } from 'lucide-react';
+import { BotChainEcosystem } from '@/components/BotChainEcosystem';
+import Image from 'next/image';
+import { RefreshCw, ExternalLink, HelpCircle, Terminal, CheckCircle2, ShieldCheck, ShieldAlert, Copy, Check } from 'lucide-react';
 
 export default function Home() {
   const { address } = useAccount();
@@ -35,7 +37,7 @@ export default function Home() {
     address: (isValidAddress ? contractAddress : undefined) as `0x${string}`,
     abi: BIDBOX_ABI,
     functionName: 'getAuctionDetails',
-    chainId: botchainTestnet.id,
+    chainId: botchainMainnet.id,
     query: {
       enabled: isValidAddress,
       refetchInterval: 6000, // Refresh automatically every 6 seconds
@@ -51,7 +53,7 @@ export default function Home() {
     abi: BIDBOX_ABI,
     functionName: 'refunds',
     args: address ? [address] : undefined,
-    chainId: botchainTestnet.id,
+    chainId: botchainMainnet.id,
     query: {
       enabled: isValidAddress && !!address,
       refetchInterval: 6000,
@@ -147,44 +149,49 @@ export default function Home() {
         <Header />
 
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
-          {/* Top Contract Config & Refresh Bar */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 rounded-2xl bg-navy-900/60 border border-navy-700/70 text-xs">
-            <form
-              onSubmit={handleUpdateAddress}
-              className="flex items-center space-x-2 flex-grow max-w-xl"
-            >
-              <span className="text-slate-400 font-medium shrink-0">Contract:</span>
-              <input
-                type="text"
-                placeholder="0x... (Deployed BidBox Contract Address)"
-                value={addressInput}
-                onChange={(e) => handleInputChange(e.target.value)}
-                className="w-full bg-navy-950 border border-navy-700/80 rounded-xl px-3 py-2 text-white font-mono placeholder-slate-600 focus:outline-none focus:border-purple-500"
-              />
-              <button
-                type="submit"
-                className="px-3.5 py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/40 text-purple-200 font-semibold transition-colors shrink-0"
-              >
-                Set
-              </button>
-            </form>
+          {/* Mainnet Contract Banner */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 rounded-2xl bg-navy-900/80 border border-purple-500/30 text-xs shadow-lg backdrop-blur-md">
+            <div className="flex items-center space-x-3.5">
+              <div className="relative w-9 h-9 rounded-xl bg-black/60 border border-emerald-500/40 p-1 flex items-center justify-center shrink-0 shadow-md shadow-emerald-500/10">
+                <Image
+                  src="/botchain-logo.png"
+                  alt="BOT Chain"
+                  width={28}
+                  height={28}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3">
+                <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 uppercase tracking-wider shrink-0 w-fit">
+                  BOT Chain Mainnet Contract
+                </span>
+                <span className="font-mono text-slate-100 text-xs sm:text-sm font-semibold select-all break-all">
+                  {BIDBOX_CONTRACT_ADDRESS}
+                </span>
+              </div>
+            </div>
 
-            <div className="flex items-center justify-between sm:justify-end space-x-3">
-              {isValidAddress && (
-                <a
-                  href={`https://scan.bohr.life/address/${contractAddress}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center space-x-1 text-slate-400 hover:text-purple-300 transition-colors"
-                >
-                  <span>BohrScan</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              )}
+            <div className="flex items-center justify-between sm:justify-end space-x-3 shrink-0">
+              <a
+                href={`https://scan.botchain.ai/address/${BIDBOX_CONTRACT_ADDRESS}`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center space-x-2 px-3.5 py-2 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/35 text-xs text-purple-200 hover:text-white transition-all font-semibold shadow-sm group"
+              >
+                <Image
+                  src="/botchain-logo.png"
+                  alt="BOT Chain Explorer"
+                  width={16}
+                  height={16}
+                  className="w-4 h-4 rounded object-contain shrink-0 group-hover:scale-110 transition-transform"
+                />
+                <span>Mainnet Explorer</span>
+                <ExternalLink className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100" />
+              </a>
               <button
                 onClick={handleRefresh}
                 disabled={isRefetching || isLoadingDetails}
-                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-navy-800 hover:bg-navy-750 text-slate-300 hover:text-white transition-colors"
+                className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-navy-800 hover:bg-navy-750 text-slate-300 hover:text-white transition-colors border border-navy-700 font-medium"
               >
                 <RefreshCw
                   className={`w-3.5 h-3.5 ${isRefetching ? 'animate-spin text-purple-400' : ''}`}
@@ -193,29 +200,6 @@ export default function Home() {
               </button>
             </div>
           </div>
-
-          {/* If No Valid Contract Address Configured Banner */}
-          {!isValidAddress && (
-            <div className="p-6 rounded-3xl bg-gradient-to-r from-purple-950/40 via-navy-900 to-navy-850 border border-purple-500/30 text-slate-200 shadow-xl">
-              <div className="flex items-start space-x-4">
-                <div className="p-3 rounded-2xl bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                  <Terminal className="w-6 h-6" />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="text-base font-bold text-white">
-                    Ready to Connect Your Deployed BidBox Auction
-                  </h3>
-                  <p className="text-xs text-slate-400 leading-relaxed max-w-2xl">
-                    Deploy your smart contract to Botchain Testnet using the command below, or paste your contract address above.
-                  </p>
-                  <div className="mt-2 p-3 rounded-xl bg-black/60 font-mono text-xs text-purple-300 border border-purple-900/50 flex items-center justify-between">
-                    <code>npm run deploy:botchain</code>
-                    <span className="text-[10px] text-slate-500">Chain ID 968</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
 
           {/* Main Auction Showcase */}
           <AuctionCard
@@ -293,35 +277,8 @@ export default function Home() {
         </main>
       </div>
 
-      {/* Footer */}
-      <footer className="border-t border-navy-800/80 bg-[#070A12]/90 mt-16 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <div className="flex items-center space-x-2">
-            <span className="font-semibold text-slate-300">BidBox</span>
-            <span>&bull;</span>
-            <span>Decentralized On-Chain Auction</span>
-          </div>
-
-          <div className="flex items-center space-x-6 text-slate-400">
-            <a
-              href="https://rpc.bohr.life"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-purple-300 transition-colors"
-            >
-              RPC: https://rpc.bohr.life
-            </a>
-            <a
-              href="https://scan.bohr.life"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-purple-300 transition-colors"
-            >
-              BohrScan Explorer
-            </a>
-          </div>
-        </div>
-      </footer>
+      {/* BOT Chain Ecosystem Section & Footer */}
+      <BotChainEcosystem />
     </div>
   );
 }

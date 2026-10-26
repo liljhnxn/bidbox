@@ -1,14 +1,14 @@
 {
   "name": "bidbox",
   "version": "1.0.0",
-  "description": "BidBox - On-Chain Auction dApp on Botchain Testnet",
+  "description": "BidBox - On-Chain Auction dApp on Botchain Mainnet",
   "main": "index.js",
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
     "deploy:local": "hardhat run scripts/deploy.js --network hardhat",
-    "deploy:botchain": "hardhat run scripts/deploy.js --network botchainTestnet",
-    "verify:botchain": "hardhat verify --network botchainTestnet",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network botchainMainnet",
+    "verify:mainnet": "hardhat verify --network botchainMainnet",
     "dev": "npm --prefix frontend run dev",
     "build:frontend": "npm --prefix frontend run build"
   },

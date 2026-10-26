@@ -3,8 +3,8 @@ import './globals.css';
 import { Providers } from './providers';
 
 export const metadata: Metadata = {
-  title: 'BidBox | On-Chain Auction on Botchain Testnet',
-  description: 'Place your bid. Win the item. Transparent and decentralized on-chain auctions on Botchain Testnet.',
+  title: 'BidBox | On-Chain Auction on Botchain Mainnet',
+  description: 'Place your bid. Win the item. Transparent and decentralized on-chain auctions on Botchain Mainnet.',
   icons: {
     icon: [
       { url: '/bidbox-favicon.svg', type: 'image/svg+xml' },

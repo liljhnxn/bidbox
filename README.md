@@ -1,6 +1,6 @@
-# 📦 BidBox — On-Chain Auction dApp on Botchain Testnet
+# 📦 BidBox — On-Chain Auction dApp on Botchain Mainnet
 
-BidBox is a clean, secure, beginner-friendly Web3 auction decentralized application (dApp) built on the **Botchain Testnet**. It enables users to bid transparently on an item using native **BOT** tokens, escrows outbid funds safely, and provides intuitive creator management controls.
+BidBox is a clean, secure, beginner-friendly Web3 auction decentralized application (dApp) built on the **Botchain Mainnet**. It enables users to bid transparently on an item using native **BOT** tokens, escrows outbid funds safely, and provides intuitive creator management controls.
 
 ---
 
@@ -13,27 +13,29 @@ BidBox is a clean, secure, beginner-friendly Web3 auction decentralized applicat
   - Conclude auction once the duration expires.
   - Safely withdraw final winning proceeds.
 - **Bulletproof Smart Contract**:
-  - Built with Solidity `^0.8.20` targetting EVM Paris compatibility.
+  - Built with Solidity `^0.8.20` targeting EVM Paris compatibility.
   - Complete `nonReentrant` guard on all value transfers.
   - Strictly follows the Checks-Effects-Interactions (CEI) design pattern.
   - 25 automated tests covering all edge cases, access control, and reentrancy attempts.
 - **Modern Web3 Frontend**:
   - Next.js 14 App Router, TypeScript, and Tailwind CSS.
   - Integrated with `wagmi` v2 and `viem` v2.
-  - Live countdown timers, auto-refreshing contract states, and BohrScan explorer links.
+  - Live countdown timers, auto-refreshing contract states, and Botchain Scan explorer links.
 
 ---
 
-## 🌐 Botchain Testnet Network Details
+## 🌐 Botchain Mainnet Network Details
 
 | Parameter | Value |
 | :--- | :--- |
-| **Network Name** | Botchain Testnet |
-| **Chain ID** | `968` |
+| **Network Name** | Botchain Mainnet |
+| **Chain ID** | `677` |
 | **Currency Symbol** | `BOT` |
 | **Currency Decimals** | `18` |
-| **RPC URL** | [https://rpc.bohr.life](https://rpc.bohr.life/) |
-| **Block Explorer** | [https://scan.bohr.life](https://scan.bohr.life/) |
+| **Total Supply** | 150 Million |
+| **RPC URL** | [https://rpc.botchain.ai](https://rpc.botchain.ai/) |
+| **Block Explorer** | [https://scan.botchain.ai](https://scan.botchain.ai/) |
+| **Deployed Contract** | [`0x692250e9Ed2acb14E4ed7a5EB5857ED48E330df7`](https://scan.botchain.ai/address/0x692250e9Ed2acb14E4ed7a5EB5857ED48E330df7) |
 
 ---
 
@@ -80,7 +82,7 @@ BidBox/
 ### 1. Prerequisites
 - **Node.js** v18+ (tested on Node 20 / 25)
 - **MetaMask** or any EIP-1193 Web3 browser wallet
-- **BOT Testnet Tokens** (from the Botchain faucet)
+- **BOT Mainnet Tokens**
 
 ---
 
@@ -110,7 +112,7 @@ You should see 25 passing tests verifying:
 
 ---
 
-### 3. Deploying to Botchain Testnet
+### 3. Deploying to Botchain Mainnet
 
 1. Copy `.env.example` to `.env`:
    ```bash
@@ -119,27 +121,27 @@ You should see 25 passing tests verifying:
 
 2. Open `.env` and fill in your deployer private key:
    ```env
-   BOTCHAIN_RPC_URL="https://rpc.bohr.life"
+   BOTCHAIN_RPC_URL="https://rpc.botchain.ai"
    PRIVATE_KEY="YOUR_PRIVATE_KEY_HERE"
-   AUCTION_ITEM_NAME="Genesis Botchain Pass #001"
+   AUCTION_ITEM_NAME="BidBox Genesis Pass #002"
    AUCTION_DURATION_SECONDS="259200"
    ```
 
 3. Run the deployment script:
    ```bash
-   npm run deploy:botchain
+   npm run deploy:mainnet
    ```
 
    The script will:
-   - Deploy `BidBox.sol` to Botchain Testnet.
+   - Deploy `BidBox.sol` to Botchain Mainnet with optimized gas settings.
    - Display the deployed contract address and explorer URL.
    - Automatically save the address to `frontend/src/config/contract-address.json`.
 
-4. (Optional) Verify contract source code on BohrScan:
+4. (Optional) Verify contract source code on Botchain Scan:
    ```bash
-   npm run verify:botchain <DEPLOYED_CONTRACT_ADDRESS> "<ITEM_NAME>" <DURATION_IN_SECONDS>
+   npm run verify:mainnet <DEPLOYED_CONTRACT_ADDRESS> "<ITEM_NAME>" <DURATION_IN_SECONDS>
    ```
-   *Note: The deployed contract `0xf50F7B445c71Cff1D5455Ca1d1689f6e06fcBCdf` is already verified!*
+   *Live deployed contract:* [`0x692250e9Ed2acb14E4ed7a5EB5857ED48E330df7`](https://scan.botchain.ai/address/0x692250e9Ed2acb14E4ed7a5EB5857ED48E330df7)
 
 ---
 
@@ -155,7 +157,7 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 - Connect your wallet.
-- If your wallet is on another network, click **Switch to Botchain** to add/switch to Chain ID `968`.
+- If your wallet is on another network, click **Switch to Botchain** to add/switch to Chain ID `677`.
 - Place bids, monitor leading offers, withdraw refunds, and manage the auction.
 
 ---

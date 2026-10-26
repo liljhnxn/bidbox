@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import { useAccount, useConnect, useDisconnect, useChainId, useSwitchChain, useBalance } from 'wagmi';
-import { botchainTestnet } from '@/config/network';
+import { botchainMainnet } from '@/config/network';
 import { formatEther } from 'viem';
-import { Wallet, LogOut, ChevronDown, CheckCircle2, AlertTriangle, ShieldCheck } from 'lucide-react';
+import Image from 'next/image';
+import { Wallet, LogOut, ChevronDown, CheckCircle2, AlertTriangle, ShieldCheck, ExternalLink, Globe } from 'lucide-react';
 
 export function Header() {
   const { address, isConnected } = useAccount();
@@ -17,10 +18,10 @@ export function Header() {
 
   const { data: balanceData } = useBalance({
     address: address,
-    chainId: botchainTestnet.id,
+    chainId: botchainMainnet.id,
   });
 
-  const isCorrectNetwork = chainId === botchainTestnet.id;
+  const isCorrectNetwork = chainId === botchainMainnet.id;
 
   const shortenAddress = (addr: string) => {
     return `${addr.substring(0, 6)}...${addr.substring(addr.length - 4)}`;
@@ -73,11 +74,11 @@ export function Header() {
               isCorrectNetwork ? (
                 <>
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-slate-300 font-medium">Botchain Testnet (968)</span>
+                  <span className="text-slate-300 font-medium">Botchain Mainnet (677)</span>
                 </>
               ) : (
                 <button
-                  onClick={() => switchChain({ chainId: botchainTestnet.id })}
+                  onClick={() => switchChain({ chainId: botchainMainnet.id })}
                   className="flex items-center space-x-1.5 text-amber-400 hover:text-amber-300 transition-colors font-medium"
                 >
                   <AlertTriangle className="w-3.5 h-3.5" />
@@ -87,10 +88,46 @@ export function Header() {
             ) : (
               <>
                 <span className="w-2 h-2 rounded-full bg-slate-500" />
-                <span className="text-slate-400">Botchain (968)</span>
+                <span className="text-slate-400">Botchain (677)</span>
               </>
             )}
           </div>
+
+          {/* BOT Chain Website Link with Logo in Front */}
+          <a
+            href="https://botchain.ai"
+            target="_blank"
+            rel="noreferrer"
+            className="hidden lg:flex items-center space-x-2 px-3 py-1.5 rounded-xl border border-cyan-500/30 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-200 hover:text-white transition-all text-xs font-semibold shadow-sm group"
+          >
+            <Image
+              src="/botchain-logo.png"
+              alt="BOT Chain Logo"
+              width={18}
+              height={18}
+              className="w-4.5 h-4.5 rounded object-contain shrink-0 group-hover:scale-110 transition-transform"
+            />
+            <span>BOT Chain Website</span>
+            <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100" />
+          </a>
+
+          {/* BOT Chain Explorer Link with Logo in Front */}
+          <a
+            href="https://scan.botchain.ai"
+            target="_blank"
+            rel="noreferrer"
+            className="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-xl border border-purple-500/30 bg-purple-500/10 hover:bg-purple-500/20 text-purple-200 hover:text-white transition-all text-xs font-semibold shadow-sm group"
+          >
+            <Image
+              src="/botchain-logo.png"
+              alt="BOT Chain Logo"
+              width={18}
+              height={18}
+              className="w-4.5 h-4.5 rounded object-contain shrink-0 group-hover:scale-110 transition-transform"
+            />
+            <span>BOT Chain Explorer</span>
+            <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100" />
+          </a>
 
           {/* Wallet Connection */}
           {!isConnected ? (
@@ -130,13 +167,13 @@ export function Header() {
                     <p className="font-mono text-slate-200 truncate mt-0.5">{address}</p>
                   </div>
                   <a
-                    href={`https://scan.bohr.life/address/${address}`}
+                    href={`https://scan.botchain.ai/address/${address}`}
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center space-x-2 w-full px-3 py-2 text-xs text-slate-300 hover:bg-navy-800 rounded-lg transition-colors mt-1"
                   >
                     <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
-                    <span>View on BohrScan</span>
+                    <span>View on Botchain Scan</span>
                   </a>
                   <button
                     onClick={() => {
@@ -169,7 +206,7 @@ export function Header() {
               </button>
             </div>
             <p className="text-xs text-slate-400 mt-3 mb-5">
-              Connect your Web3 wallet to place bids and participate in on-chain auctions on Botchain Testnet.
+              Connect your Web3 wallet to place bids and participate in on-chain auctions on Botchain Mainnet.
             </p>
 
             <div className="space-y-2.5">
@@ -192,7 +229,7 @@ export function Header() {
             </div>
 
             <div className="mt-5 pt-4 border-t border-navy-800/80 text-[11px] text-center text-slate-500">
-              Botchain Testnet (Chain ID: 968)
+              Botchain Mainnet (Chain ID: 677)
             </div>
           </div>
         </div>

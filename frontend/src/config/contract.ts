@@ -1,7 +1,7 @@
 import contractAddressConfig from './contract-address.json';
 
-// Default contract address from deployment or fallback
-export const BIDBOX_CONTRACT_ADDRESS = (contractAddressConfig.address || '') as `0x${string}`;
+// Deployed Botchain Mainnet Contract Address (Chain ID 677)
+export const BIDBOX_CONTRACT_ADDRESS: `0x${string}` = '0x692250e9Ed2acb14E4ed7a5EB5857ED48E330df7';
 
 export const BIDBOX_ABI = [
   {

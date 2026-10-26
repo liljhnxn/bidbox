@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import { createPublicClient, http } from 'viem';
-import { botchainTestnet } from '@/config/network';
+import { botchainMainnet } from '@/config/network';
 import { BIDBOX_ABI, BIDBOX_CONTRACT_ADDRESS } from '@/config/contract';
 
 const serverClient = createPublicClient({
-  chain: botchainTestnet,
-  transport: http('https://rpc.bohr.life'),
+  chain: botchainMainnet,
+  transport: http('https://rpc.botchain.ai'),
 });
 
 export async function GET(request: Request) {
